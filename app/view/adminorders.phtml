@@ -27,9 +27,9 @@
               <tr>
                 <th scope="row">1</th>
                 <td><?= $item['name'] ?></td>
-                <td><?= $item['price'] ?></td>
+                <td><?= price($item['price']) ?></td>
                 <td><?= $item['qty'] ?></td>
-                <td><?= $item['qty'] * $item['price'] ?></td>
+                <td><?= price($item['qty'] * $item['price']) ?></td>
                 <td><?php if ($item['unit'] >= 1) {
                       echo "ANO";
                     } else {

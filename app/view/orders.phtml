@@ -23,9 +23,9 @@
               <tr>
                 <th scope="row">1</th>
                 <td><?= $item['name'] ?></td>
-                <td><?= $item['price'] ?></td>
+                <td><?= price($item['price']) ?></td>
                 <td><?= $item['qty'] ?></td>
-                <td><?= $item['qty'] * $item['price'] ?></td>
+                <td><?= price($item['qty'] * $item['price']) ?></td>
                 <td><?php if ($item['unit'] >= 1) {
                       echo "ANO";
                     } else {
@@ -36,6 +36,16 @@
             </tbody>
           <?php endforeach ?>
         </table>
+        <div class="alert alert-light" role="alert">
+          Celková cena je <a class="alert-link"><?php 
+          $price = 0;
+          foreach ($order['items'] as $item){
+            $price += $item['qty'] * $item['price'];
+          }
+          echo price($price);
+          
+          ?></a>. Děkujeme za Váš nákup.
+        </div>
 
         <?php if ($order['state'] == '1') : ?>
           <div class="alert alert-success" role="alert">

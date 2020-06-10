@@ -1,4 +1,5 @@
 <div class="container">
+<?php if (!empty($items)) : ?>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -11,14 +12,14 @@
       </tr>
     </thead>
     <tbody>
-      <?php if (!empty($items)) : ?>
+      
         <?php foreach ($items as $item) : ?>
           <tr>
             <th scope="row"></th>
             <td><?= $item['name'] ?></td>
-            <td><?= $item['price'] ?></td>
+            <td><?= price($item['price']) ?></td>
             <td><?= $item['qty'] ?></td>
-            <td><?= (int) $item['qty'] * (int) $item['price'] ?> </td>
+            <td><?= price((int) $item['qty'] * (int) $item['price']) ?> </td>
             <td>
               <form method="POST" action="/4IZ278/app/model/deleteFromCart.php">
 
