@@ -10,4 +10,6 @@ foreach ($_SESSION['cart'] as $index => $item) {
     }
 }
 
+flash("Položka byla odebrána");
+
 return redirect('cart');

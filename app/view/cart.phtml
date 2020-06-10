@@ -11,23 +11,25 @@
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($items as $item) : ?>
-        <tr>
-          <th scope="row"></th>
-          <td><?= $item['name'] ?></td>
-          <td><?= $item['price'] ?></td>
-          <td><?= $item['qty'] ?></td>
-          <td><?= (int) $item['qty'] * (int) $item['price'] ?> </td>
-          <td>
-            <form method="POST" action="/4IZ278/app/model/deleteFromCart.php">
+      <?php if (!empty($items)) : ?>
+        <?php foreach ($items as $item) : ?>
+          <tr>
+            <th scope="row"></th>
+            <td><?= $item['name'] ?></td>
+            <td><?= $item['price'] ?></td>
+            <td><?= $item['qty'] ?></td>
+            <td><?= (int) $item['qty'] * (int) $item['price'] ?> </td>
+            <td>
+              <form method="POST" action="/4IZ278/app/model/deleteFromCart.php">
 
-              <input type="hidden" value="<?= $item['id'] ?>" name="id"></input>
+                <input type="hidden" value="<?= $item['id'] ?>" name="id"></input>
 
-              <button type="submit" class="btn btn-outline-danger">Odstranit z košíku</button>
-            </form>
-          </td>
-        </tr>
-      <?php endforeach ?>
+                <button type="submit" class="btn btn-outline-danger">Odstranit z košíku</button>
+              </form>
+            </td>
+          </tr>
+        <?php endforeach ?>
+
     </tbody>
   </table>
 
@@ -35,4 +37,15 @@
     <input type="hidden" value=post name="items"></input>
     <button type="submit" class="btn btn-outline-success">Objednat</button>
   </form>
+
+<?php else :  ?>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Košík je prázdný</h1>
+      <p class="lead">Vyberte si položku a následně ji objednejte.</p>
+    </div>
+  </div>
+<?php endif ?>
+
+
 </div>

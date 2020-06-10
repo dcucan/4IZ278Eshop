@@ -8,7 +8,7 @@ require_login();
 //dd($_SESSION['user']['id']);
 
 
-if (!isset($_SESSION['cart'])) return redirect('eshop');
+if (!isset($_SESSION['cart'])||empty($_SESSION['cart'])) return redirect('eshop');
 
 
 $ids = [];
@@ -36,4 +36,4 @@ foreach ($_SESSION['cart'] as $index => $item) {
 unset($_SESSION['cart']);
 
 
-redirect('cart');
+redirect('orders');

@@ -6,7 +6,7 @@ require_login();
 
 //$items_for_order = db_selectAll("SELECT * FROM orderItems WHERE id IN ($placeholders)", $ids);
 
-$orders = db_selectAll("SELECT * FROM `order` WHERE id_user=?", [$_SESSION['user']['id']]);
+$orders = db_selectAll("SELECT * FROM `order` WHERE id_user=? ORDER BY id DESC", [$_SESSION['user']['id']]);
 
 $orderIDs = [];
 

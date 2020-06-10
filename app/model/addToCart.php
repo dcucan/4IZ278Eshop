@@ -23,4 +23,6 @@ $_SESSION['cart'][] = [
     'qty' => $_POST['qty'],
 ];
 
+flash("Položka byla přidána do košíku");
+
 return redirect('cart');
