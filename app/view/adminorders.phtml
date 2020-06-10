@@ -1,0 +1,76 @@
+<?php require "/opt/lampp/htdocs/4IZ278/app/model/adminorders.php" ?>
+
+
+
+<div class="container">
+  <?php foreach ($orders as $order) : ?>
+    <div class="card mb-4">
+      <div class="card-header">
+        Objednávka č. <?= $order['id'] ?>
+      </div>
+      <div class="card-body ">
+        <h5 class="card-title">Položky</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Položka</th>
+              <th scope="col">Cena</th>
+              <th scope="col">Počet</th>
+              <th scope="col">Celková cena</th>
+              <th scope="col">Skladem</th>
+
+            </tr>
+          </thead>
+          <?php foreach ($order['items'] as $item) : ?>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td><?= $item['name'] ?></td>
+                <td><?= $item['price'] ?></td>
+                <td><?= $item['qty'] ?></td>
+                <td><?= $item['qty'] * $item['price'] ?></td>
+                <td><?php if ($item['unit'] >= 1) {
+                      echo "ANO";
+                    } else {
+                      echo "ne";
+                    } ?></td>
+                <td><?= $item['qty'] ?></td>
+
+              </tr>
+
+
+
+            </tbody>
+          <?php endforeach ?>
+        </table>
+
+        <?php if (is_null($order['state'])) : ?>
+
+          <div class="d-inline-flex">
+            <form method="POST" action="/4IZ278/app/model/confirmOrder.php">
+              <input type="hidden" value="<?= $order['id'] ?>" name="confirm"></input>
+              <button type="submit" class="btn btn-success">Potvrdit objednávku</button>
+            </form>
+
+            <form method="POST" action="/4IZ278/app/model/deleteOrder.php">
+              <input type="hidden" value="<?= $order['id'] ?>" name="delete"></input>
+              <button type="submit" class="btn btn-danger">Anulovat objednávku</button>
+            </form>
+          </div>
+        <?php endif ?>
+
+        <?php if (!is_null($order['state'])) : ?>
+          <div class="alert alert-primary" role="alert">
+            Objednávka byla <?php if ($order['state'] == 1) {
+                              echo "vyřízena.";
+                            } else {
+                              echo "zamítnuta";
+                            } ?>
+          </div>
+        <?php endif ?>
+
+      </div>
+    </div>
+  <?php endforeach ?>
+</div>

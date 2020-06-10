@@ -1,0 +1,60 @@
+<div class="container">
+
+  <?php foreach ($orders as $order) : ?>
+    <div class="card mb-4">
+      <div class="card-header">
+        Objednávka č. <?= $order['id'] ?>
+      </div>
+      <div class="card-body ">
+        <h5 class="card-title">Položky</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Položka</th>
+              <th scope="col">Cena</th>
+              <th scope="col">Počet</th>
+              <th scope="col">Celková cena</th>
+              <th scope="col">Skladem</th>
+            </tr>
+          </thead>
+          <?php foreach ($order['items'] as $item) : ?>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td><?= $item['name'] ?></td>
+                <td><?= $item['price'] ?></td>
+                <td><?= $item['qty'] ?></td>
+                <td><?= $item['qty'] * $item['price'] ?></td>
+                <td><?php if ($item['unit'] >= 1) {
+                      echo "ANO";
+                    } else {
+                      echo "ne";
+                    } ?></td>
+              </tr>
+
+            </tbody>
+          <?php endforeach ?>
+        </table>
+
+        <?php if ($order['state'] == '1') : ?>
+          <div class="alert alert-success" role="alert">
+            Objednávka je připravena k převzetí.
+          </div>
+        <?php endif ?>
+
+        <?php if ($order['state'] == '0') : ?>
+          <div class="alert alert-danger" role="alert">
+            Objednávka byla zamítnuta.
+          </div>
+        <?php endif ?>
+        <?php if (is_null($order['state'])) : ?>
+          <div class="alert alert-primary" role="alert">
+            Objednávka čeká na vyřízení.
+          </div>
+        <?php endif ?>
+      </div>
+    </div>
+
+  <?php endforeach ?>
+</div>

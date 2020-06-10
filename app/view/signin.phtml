@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Registrace</h1>
+      <form action="../app/model/register.php" method="POST" requiered>
+        <div class="form-group">
+          <label for="nameReg">Jméno</label>
+          <input name="nameReg" type="text" class="form-control" requiered>
+        </div>
+        <div class="form-group">
+          <label for="surnameReg">Příjmení</label>
+          <input name="surnameReg" type="text" class="form-control" requiered>
+        </div>
+        <div class="form-group">
+          <label for="emailReg">Email</label>
+          <input name="emailReg" type="email" class="form-control" requiered>
+        </div>
+        <div class="form-group">
+          <label for="passwordReg">Heslo</label>
+          <input name="passwordReg" type="password" class="form-control" requiered>
+        </div>
+        <div class="form-group">
+          <label for="passwordRegAg">Heslo znovu</label>
+          <input name="passwordRegAg" type="password" class="form-control" requiered>
+        </div>
+        <button type="submit" class="btn btn-primary">Registrovat</button>
+      </form>
+    </div>
+
+
+
+    <div class="col">
+      <h1>Přihlášení</h1>
+      <form action="../app/model/login.php" method="POST">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input name="email" type="text" class="form-control" requiered>
+        </div>
+        <div class="form-group">
+          <label for="password">Heslo</label>
+          <input name="password" type="password" class="form-control" requiered>
+        </div>
+        <button type="submit" class="btn btn-primary">Přihlásit</button>
+      </form>
+    </div>
+  </div>
+</div>

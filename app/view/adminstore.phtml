@@ -1,0 +1,138 @@
+<?php require "/opt/lampp/htdocs/4IZ278/app/model/adminstore.php" ?>
+
+<div class="card mb-4">
+  <div class="card-header">
+    Nová položka:
+  </div>
+  <div class="card-body">
+    <form method="POST" action="/4IZ278/app/model/newItem.php">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="text">Název</label>
+          <input type="text" class="form-control" name="name" required>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputState">Typ</label>
+          <select id="inputState" class="form-control" name="type">
+            <option value="krmivo">Krmivo</option>
+            <option value="parazit">Prostředky proti parazitům</option>
+            <option value="sampon">Šampony</option>
+            <option value="pasty">Zubní pasty</option>
+            <option value="doplnky">Doplňky</option>
+          </select>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="price">Cena</label>
+          <input type="number" class="form-control" id="inputZip" name="price" required>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="price">Počet</label>
+          <input type="number" class="form-control" id="inputZip" name="unit" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Popis</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary mb-4">Potvrdit</button>
+    </form>
+
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+    Položky na skladě:
+  </div>
+  <div class="card-body">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Název</th>
+          <th scope="col">Na skladě</th>
+          <th scope="col">Cena</th>
+          <th scope="col">Popis</th>
+          <th scope="col">Typ</th>
+          <th scope="col">Upravit</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <?php foreach ($items as $item) : ?>
+          <tr>
+            <th scope="row">1</th>
+            <td><?= $item['name'] ?></td>
+            <td><?= $item['unit'] ?></td>
+            <td><?= $item['price'] ?></td>
+            <td><?= $item['description'] ?></td>
+            <td><?= $item['type'] ?></td>
+            <td>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal<?= $item['id'] ?>">Upravit</button>
+              <div class="modal fade" id="modal<?= $item['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                
+              <form method="POST" action="/4IZ278/app/model/updateItem.php">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Upravujete položku: <?= $item['name'] ?></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+
+                        
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="text">Název</label>
+                              <input type="text" class="form-control" name="name" value="<?= $item['name']?>">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputState">Typ</label>
+                              <select id="inputState" class="form-control" name="type">
+                                <option value="krmivo">Krmivo</option>
+                                <option value="parazit">Prostředky proti parazitům</option>
+                                <option value="sampon">Šampony</option>
+                                <option value="pasty">Zubní pasty</option>
+                                <option value="doplnky">Doplňky</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="price">Cena</label>
+                              <input type="number" class="form-control" id="inputZip" name="price" value="<?= $item['price']?>">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="price">Počet</label>
+                              <input type="number" class="form-control" id="inputZip" name="unit" value="<?= $item['unit']?>">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Popis</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"><?= $item['description']?></textarea>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <input hidden name="id" value="<?= $item['id'] ?>"></input>
+                            <button type="submit" class="btn btn-success">Save changes</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                </form>
+              </div>
+  </div>
+</div>
+</div>
+</td>
+</tr>
+</div>
+<?php endforeach ?>
+</tbody>
+</table>
+
+</div>
+</div>

@@ -1,0 +1,131 @@
+<div class="container">
+  <ul class="nav nav-tabs mb-4">
+    <li class="nav-item">
+      <a class="nav-link 
+      <?php if (isset($_GET['type'])) {
+        if ($_GET['type'] == 'krmivo') {
+          echo "active";
+        }
+      }
+      ?>
+    " href="<?= q(['type' => "krmivo"]); ?>">Krmiva</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link 
+      <?php if (isset($_GET['type'])) {
+        if ($_GET['type'] == 'parazit') {
+          echo "active";
+        }
+      }
+      ?>
+    " href="<?= q(['type' => "parazit"]); ?>">Prostředky proti parazitům</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link
+      <?php if (isset($_GET['type'])) {
+        if ($_GET['type'] == 'sampon') {
+          echo "active";
+        }
+      }
+      ?>
+    " href="<?= q(['type' => "sampon"]); ?>">Šampony</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link 
+      <?php if (isset($_GET['type'])) {
+        if ($_GET['type'] == 'pasty') {
+          echo "active";
+        }
+      }
+      ?>
+    " href="<?= q(['type' => "pasty"]); ?>">Zubní pasty</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link
+      <?php if (isset($_GET['type'])) {
+        if ($_GET['type'] == 'doplnky') {
+          echo "active";
+        }
+      }
+      ?>
+    " href="<?= q(['type' => "doplnky"]); ?>">Doplňky</a>
+    </li>
+  </ul>
+
+  <div class="row">
+    <?php foreach ($items as $item) : ?>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><?= $item['name'] ?></h5>
+            <p class="card-text"><?= $item['description'] ?></p>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal<?= $item['id'] ?>">Koupit</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modal<?= $item['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <form method="POST" action="/4IZ278/app/model/addToCart.php">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Přejete si přidat do košíku: <?= $item['name'] ?>?</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <label for="exampleFormControlSelect1">Vyberte množství</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="qty">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                      <input type="hidden" value="<?= $item['id'] ?>" name="id"></input>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Zrušit</button>
+                      <button type="submit" class="btn btn-primary">Přidat do košíku</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="card-footer">
+            <?= price($item['price']) ?>
+          </div>
+        </div>
+      </div>
+    <?php endforeach ?>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <?php if ($pages > 1) : ?>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <?php for ($i = 1; $i <= $pages; $i++) : ?>
+              <li class="page-item">
+                <a class="page-link" href="<?= q(['offset' => ($i - 1) * $limit]) ?>"><?= $i ?></a>
+              </li>
+            <?php endfor ?>
+          </ul>
+        </nav>
+      <?php endif ?>
+    </div>
+    <div class="col">
+      <div class="dropdown float-right">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Items per page: <?= $limit ?>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="<?= q(['limit' => 1, 'offset' => null]) ?>">1</a>
+          <a class="dropdown-item" href="<?= q(['limit' => 2, 'offset' => null]) ?>">2</a>
+          <a class="dropdown-item" href="<?= q(['limit' => 4, 'offset' => null]) ?>">4</a>
+          <a class="dropdown-item" href="<?= q(['limit' => 8, 'offset' => null]) ?>">8</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

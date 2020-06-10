@@ -1,0 +1,38 @@
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Název položky</th>
+        <th scope="col">Cena za jednotku</th>
+        <th scope="col">Počet</th>
+        <th scope="col">Celková cena</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($items as $item) : ?>
+        <tr>
+          <th scope="row"></th>
+          <td><?= $item['name'] ?></td>
+          <td><?= $item['price'] ?></td>
+          <td><?= $item['qty'] ?></td>
+          <td><?= (int) $item['qty'] * (int) $item['price'] ?> </td>
+          <td>
+            <form method="POST" action="/4IZ278/app/model/deleteFromCart.php">
+
+              <input type="hidden" value="<?= $item['id'] ?>" name="id"></input>
+
+              <button type="submit" class="btn btn-outline-danger">Odstranit z košíku</button>
+            </form>
+          </td>
+        </tr>
+      <?php endforeach ?>
+    </tbody>
+  </table>
+
+  <form action="/4IZ278/app/model/placeOrder.php" method="POST">
+    <input type="hidden" value=post name="items"></input>
+    <button type="submit" class="btn btn-outline-success">Objednat</button>
+  </form>
+</div>

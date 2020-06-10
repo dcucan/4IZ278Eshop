@@ -1,0 +1,34 @@
+<div class="container">
+  <ul class="nav nav-tabs mb-4">
+    <li class="nav-item">
+      <a class="nav-link 
+    <?php if (isset($_GET['subpage'])) {
+      if ($_GET['subpage'] == 'orders') {
+        echo "active";
+      }
+    }
+    ?>" href="<?= q(['subpage' => "orders"]); ?>">Objednávky</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link
+    <?php if (isset($_GET['subpage'])) {
+      if ($_GET['subpage'] == 'store') {
+        echo "active";
+      }
+    }
+    ?>" href="<?= q(['subpage' => "store"]); ?>">Sklad</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link
+    <?php if (isset($_GET['subpage'])) {
+      if ($_GET['subpage'] == 'users') {
+        echo "active";
+      }
+    }
+    ?>" href="<?= q(['subpage' => "users"]); ?>">Uživatelé</a>
+    </li>
+  </ul>
+
+
+  <?php include $content ?>
+</div>
